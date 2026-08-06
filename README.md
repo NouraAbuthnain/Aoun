@@ -1,10 +1,18 @@
 <div align="center">
 
+<img src="assets/Aoun_word_logo.png" alt="Aoun Logo" width="220">
+
 # Aoun | عون
 
-### Validate Earlier. Submit Stronger Claims.
+### *Validate Earlier. Submit Stronger Claims.*
 
-An AI-assisted healthcare claims validation prototype built with Python, Streamlit, OpenAI, Pydantic, SQLAlchemy, and SQLite.
+An AI-assisted healthcare claims validation platform built with **Python**, **Streamlit**, **OpenAI**, **Pydantic**, **SQLAlchemy**, and **SQLite**.
+
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Interface-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-Speech--to--Text-01111D?logo=openai&logoColor=white)](https://openai.com/)
+[![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-D71F00)](https://www.sqlalchemy.org/)
 
 </div>
 
@@ -12,9 +20,9 @@ An AI-assisted healthcare claims validation prototype built with Python, Streaml
 
 ## Overview
 
-Aoun is a human-supervised healthcare claims validation platform designed to support healthcare providers before submitting insurance claims.
+**Aoun** is a human-supervised healthcare claims validation platform designed to help healthcare providers identify and correct potential claim issues before submission.
 
-The platform guides healthcare professionals through patient selection, encounter information, clinical documentation, diagnosis and procedure selection, supporting-document upload, and pre-submission validation.
+The platform guides healthcare professionals through clinical documentation, diagnosis and procedure selection, supporting-document upload, and pre-submission validation. Administrative, insurance, and financial information is loaded automatically from local demonstration data to reduce unnecessary manual work for physicians.
 
 Aoun is conceptually positioned between healthcare providers and NPHIES:
 
@@ -22,7 +30,9 @@ Aoun is conceptually positioned between healthcare providers and NPHIES:
 Healthcare Provider → Aoun → NPHIES → Insurance Company
 ```
 
-The current version is a local demonstration. It does not connect to production NPHIES systems, insurance companies, or real hospital infrastructure.
+Unlike a standard claim-entry form, Aoun evaluates the claim before submission, highlights possible issues, explains why correction may be required, and suggests actions that can strengthen the claim.
+
+The current version is a local educational prototype. It does not connect to production NPHIES services, hospital systems, insurance companies, or real patient records.
 
 ---
 
@@ -38,22 +48,23 @@ Healthcare claims may be rejected or delayed because of:
 - Administrative inconsistencies
 - Payer-policy compliance issues
 
-These problems can increase administrative workload, delay reimbursement, and require repeated claim submissions.
+These issues increase administrative workload, delay reimbursement, and may require repeated claim submissions.
 
-Aoun aims to identify potential issues before the claim is sent to the payer.
+Aoun aims to detect potential problems earlier, while the healthcare professional is preparing the claim.
 
 ---
 
 ## Proposed Solution
 
-Aoun provides a guided claims-validation workflow that:
+Aoun provides a guided pre-submission validation workflow that:
 
-- Helps healthcare professionals complete claim information
-- Reviews clinical and administrative data before submission
+- Loads patient, insurance, provider, and financial information automatically
+- Allows clinical documentation through typing or speech-to-text
+- Reviews clinical and administrative claim information
 - Detects potential diagnosis–procedure mismatches
 - Highlights blocking compliance issues
 - Explains why the claim may require correction
-- Suggests actions to improve the claim
+- Suggests actions to improve claim completeness
 - Calculates a claim compliance score
 - Estimates the probability of claim acceptance
 - Preserves human review before submission
@@ -65,7 +76,7 @@ Aoun provides a guided claims-validation workflow that:
 
 - Guided healthcare claim creation workflow
 - Automatic patient and insurance data loading
-- Provider and encounter documentation
+- Automatic provider and financial information loading
 - Clinical note entry through typing
 - Speech-to-text clinical documentation
 - Diagnosis, procedure, and medication selection
@@ -76,6 +87,8 @@ Aoun provides a guided claims-validation workflow that:
 - Blocking compliance issues
 - Correction suggestions
 - Visible passed compliance checks
+- Return-and-correct workflow
+- Save-as-draft option
 - Human review before claim submission
 - Persistent claim storage using SQLite
 - Claims history table
@@ -86,22 +99,87 @@ Aoun provides a guided claims-validation workflow that:
 
 ---
 
+## Required End-to-End Workflow
+
+Aoun supports the complete demonstration scenario below.
+
+### 1. Select Patient and Encounter
+
+The user selects a patient and encounter.
+
+The system automatically loads:
+
+- Patient information
+- Insurance information
+- Provider information
+- Visit details
+- Administrative information
+- Financial information
+
+This reflects the intended production design, where information already available in hospital systems should not be manually re-entered by physicians.
+
+### 2. Add Clinical Documentation
+
+The healthcare professional documents the clinical case using either:
+
+- A written clinical note
+- A recorded voice note converted through speech-to-text
+
+Completing either method allows the user to continue to the next step.
+
+### 3. Select Diagnosis and Services
+
+The healthcare professional selects:
+
+- Diagnosis code
+- Procedure or service code
+- Medication, when applicable
+
+### 4. Upload Supporting Documents
+
+Relevant supporting files can be attached to strengthen the claim documentation.
+
+### 5. Run Aoun Validation
+
+Aoun reviews the completed claim and returns:
+
+- Compliance score
+- Estimated acceptance probability
+- Blocking issues
+- Passed checks
+- Correction suggestions
+- Readiness status
+
+### 6. Review and Submit
+
+Based on the validation result, the user can:
+
+- Return and correct the claim
+- Save the claim as a draft
+- Submit the claim
+
+Submitted and saved claims are stored in SQLite and reflected in the dashboard and claims-history pages.
+
+---
+
 ## Current Demo Workflow
 
 ```text
 Healthcare Provider
         ↓
-Patient and insurance
+Select patient and encounter
         ↓
-Provider and visit
+Automatically load administrative, insurance, and financial data
         ↓
-Clinical documentation
+Enter or record clinical documentation
         ↓
-Diagnosis and services
+Select diagnosis, procedures, and medications
         ↓
-Supporting documents
+Upload supporting documents
         ↓
-Aoun validation
+Run Aoun validation
+        ↓
+Review score, issues, checks, and suggestions
         ↓
 Return and correct / Save as draft / Submit claim
         ↓
@@ -112,7 +190,7 @@ Dashboard metrics
 
 ---
 
-## Product Demo
+## Aoun in Action
 
 A short walkthrough of the Aoun healthcare claims validation workflow is included in the repository.
 
@@ -121,8 +199,9 @@ A short walkthrough of the Aoun healthcare claims validation workflow is include
 The demonstration covers:
 
 - Patient and insurance selection
+- Automatic administrative and financial data loading
 - Provider and visit information
-- Clinical documentation using typing or speech-to-text
+- Clinical documentation through typing or speech-to-text
 - Diagnosis and procedure selection
 - Supporting-document upload
 - Claim compliance validation
@@ -183,20 +262,22 @@ Review the diagnosis, select a clinically related service,
 or strengthen the clinical justification.
 ```
 
-These scores are demonstration values only. They do not represent production payer decisions, official insurance policies, or NPHIES adjudication rules.
+These values are included only to demonstrate the interface and workflow. They do not represent official payer decisions, production prediction accuracy, insurance policies, or NPHIES adjudication rules.
 
 ---
 
 ## System Architecture
 
+Aoun currently uses a modular application architecture with a Streamlit interface, typed claim schemas, service modules, and persistent local storage.
+
 ```mermaid
 flowchart LR
-    USER[Healthcare Provider]
+    USER[Healthcare Professional]
     UI[Streamlit Interface]
-    CLAIM[Claim Workflow]
+    CLAIM[Guided Claim Workflow]
+    DATA[Local Demonstration Data]
     STT[OpenAI Speech-to-Text]
-    DATA[Local Demo Data]
-    VALIDATION[Mock Compliance Validation]
+    VALIDATION[Mock Claim Validation]
     REVIEW[Human Review]
     DB[(SQLite Database)]
     HISTORY[Claims History]
@@ -204,14 +285,128 @@ flowchart LR
 
     USER --> UI
     UI --> CLAIM
+    DATA --> CLAIM
     CLAIM --> STT
-    CLAIM --> DATA
     CLAIM --> VALIDATION
     VALIDATION --> REVIEW
-    REVIEW --> DB
+    REVIEW -->|Save draft or submit| DB
     DB --> HISTORY
     DB --> DASHBOARD
 ```
+
+---
+
+## Application Components
+
+| Component | Responsibility |
+|---|---|
+| **Streamlit Interface** | Provides the dashboard, claim workflow, history page, language controls, and accessibility options. |
+| **Claim Workflow** | Guides the user through the required claim-preparation steps. |
+| **Mock Directory Service** | Loads synthetic patient, insurance, provider, diagnosis, procedure, medication, and policy data. |
+| **Speech-to-Text Service** | Converts recorded clinical documentation into text. |
+| **Claim Builder** | Combines workflow inputs into a structured claim object. |
+| **Validation Logic** | Applies deterministic demonstration rules and returns scores, issues, checks, and suggestions. |
+| **Repository Layer** | Saves and retrieves claim records. |
+| **SQLite Database** | Persists drafts and submitted claims locally. |
+| **Dashboard and History** | Displays saved-claim metrics and claim records. |
+
+---
+
+## Design Decisions
+
+### Human-Supervised Validation
+
+Aoun does not submit a claim automatically after validation. The healthcare professional remains responsible for reviewing the result and deciding whether to correct, save, or submit the claim.
+
+### Reduced Physician Data Entry
+
+Patient, insurance, provider, administrative, and financial information is automatically loaded in the demonstration. In a production environment, this information would be retrieved from connected hospital systems.
+
+The physician is primarily responsible for the clinical portion of the claim rather than manually entering information that already exists elsewhere.
+
+### Clinical Documentation by Text or Voice
+
+The clinical documentation step accepts either a typed note or a voice recording. The user does not need to complete both methods.
+
+### Deterministic Demonstration Logic
+
+The current prototype uses rule-based mock validation instead of claiming production AI adjudication accuracy. This makes the demonstration transparent and prevents unsupported claims about real acceptance decisions.
+
+---
+
+## Data Flow
+
+Aoun separates automatically loaded information from healthcare-professional input.
+
+| Data Group | Current Source |
+|---|---|
+| Patient demographics | Local demonstration data |
+| Insurance information | Local demonstration data |
+| Provider information | Local demonstration data |
+| Encounter information | Local demonstration data and workflow selection |
+| Administrative information | Local demonstration data |
+| Financial information | Local demonstration data |
+| Clinical documentation | Healthcare professional |
+| Diagnosis and procedures | Healthcare professional |
+| Supporting documents | Healthcare professional |
+| Validation result | Deterministic demonstration logic |
+| Claim status | User review and action |
+
+In production, the automatically loaded fields would be obtained through approved hospital and NPHIES integrations.
+
+---
+
+## Safety and Guardrails
+
+Aoun includes several prototype-level safeguards.
+
+### Synthetic Demonstration Data
+
+The included data is synthetic and intended only for demonstration.
+
+Real patient information must not be entered into the prototype.
+
+### Human Review
+
+Aoun preserves human review before submission and does not replace:
+
+- Physician judgment
+- Medical coders
+- Claims specialists
+- Payer adjudication
+- Clinical governance
+
+### Transparent Validation Scope
+
+The interface clearly separates demonstration scores from official payer decisions.
+
+### Local File Handling
+
+Uploaded supporting documents are stored locally in:
+
+```text
+data/uploads/
+```
+
+Runtime uploads and the SQLite database should not be committed to GitHub.
+
+### Environment Secrets
+
+API keys are stored through environment variables and should never be committed publicly.
+
+---
+
+## Accessibility
+
+The current interface supports:
+
+- English and Arabic layout direction
+- Large-text mode
+- Keyboard-focus styling
+- Minimum control sizing
+- Speech-to-text clinical documentation
+
+Text-to-speech configuration is included for future development, but text-to-speech is not currently integrated into the active claim workflow.
 
 ---
 
@@ -225,75 +420,6 @@ flowchart LR
 - SQLite
 - Pandas
 - python-dotenv
-
----
-
-## Project Structure
-
-```text
-aoun/
-│
-├── assets/
-│   ├── Aoun_Logo.png
-│   ├── Aoun_word_logo.png
-│   └── Aoun_Product_Demo.mp4
-│
-├── components/
-│   ├── __init__.py
-│   └── branding.py
-│
-├── config/
-│   ├── __init__.py
-│   └── settings.py
-│
-├── data/
-│   ├── uploads/
-│   │   └── .gitkeep
-│   └── aoun_data.json
-│
-├── database/
-│   ├── __init__.py
-│   ├── models.py
-│   └── session.py
-│
-├── docs/
-│   ├── architecture.md
-│   └── workflow.md
-│
-├── schemas/
-│   ├── __init__.py
-│   └── claim.py
-│
-├── services/
-│   ├── __init__.py
-│   ├── claim_builder.py
-│   ├── mock_directory.py
-│   ├── openai_client.py
-│   ├── repository.py
-│   └── speech_to_text.py
-│
-├── views/
-│   ├── __init__.py
-│   ├── claims.py
-│   ├── dashboard.py
-│   └── history.py
-│
-├── .env.example
-├── .gitignore
-├── app.py
-├── README.md
-└── requirements.txt
-```
-
-The following local runtime files should not be committed to GitHub:
-
-```text
-.env
-.venv/
-__pycache__/
-aoun.db
-data/uploads/*
-```
 
 ---
 
@@ -329,7 +455,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install the Dependencies
+### 3. Install Dependencies
 
 ```bash
 python -m pip install --upgrade pip
@@ -354,7 +480,7 @@ Copy-Item .env.example .env
 cp .env.example .env
 ```
 
-Add your OpenAI API key to `.env`:
+Add the required values:
 
 ```env
 # OpenAI API key
@@ -366,10 +492,10 @@ OPENAI_MODEL=gpt-4.1-mini
 # Speech-to-text model
 OPENAI_STT_MODEL=gpt-4o-mini-transcribe
 
-# Text-to-speech model
+# Text-to-speech model reserved for future development
 OPENAI_TTS_MODEL=gpt-4o-mini-tts
 
-# Voice used for text-to-speech
+# Voice reserved for future text-to-speech development
 OPENAI_TTS_VOICE=coral
 
 # Local SQLite database
@@ -382,7 +508,7 @@ Never commit the `.env` file or expose a real API key publicly.
 
 ## Running the Application
 
-Run:
+Start the Streamlit application:
 
 ```bash
 streamlit run app.py
@@ -402,7 +528,7 @@ http://localhost:8501
 
 ### Demonstration Data
 
-The following file contains the local demonstration data used by Aoun:
+The local demonstration dataset is stored in:
 
 ```text
 data/aoun_data.json
@@ -422,7 +548,7 @@ The included data is synthetic and intended only for demonstration.
 
 ### Claim Database
 
-Reviewed and submitted claims are stored locally in:
+Draft and submitted claims are stored locally in:
 
 ```text
 aoun.db
@@ -430,19 +556,17 @@ aoun.db
 
 The database is created automatically using SQLite and SQLAlchemy.
 
-Because it is a local runtime artifact and may contain claim information, it should not be committed to GitHub.
+Because it is a runtime artifact and may contain claim information, it should not be committed to GitHub.
 
 ### Supporting Documents
 
-Uploaded supporting files are stored locally in:
+Uploaded supporting files are stored in:
 
 ```text
 data/uploads/
 ```
 
-Uploaded documents should not be committed to GitHub.
-
-The repository should keep only:
+The repository should retain only:
 
 ```text
 data/uploads/.gitkeep
@@ -476,132 +600,36 @@ The dataset contains fields such as:
 - Accounts-receivable status
 - Outcome
 
-The dataset may support future Aoun work in:
-
-- Claims analytics
-- Rejection-pattern exploration
-- Feature engineering
-- Baseline acceptance or rejection modelling
-- Dashboard prototyping
-- Claim-status analysis
-
-### Dataset Limitations
-
-- It is not Saudi-specific.
-- It is not official NPHIES data.
-- It is not NPHIES ground truth.
-- It does not contain official payer policies.
-- It should not be presented as evidence of production adjudication accuracy.
-- The current live validation demonstration does not depend on this dataset.
-
 ---
 
-## Accessibility
+## Requirements Coverage
 
-The current interface supports:
-
-- English and Arabic layout direction
-- Large-text mode
-- Keyboard-focus styling
-- Minimum control sizing
-- Speech-to-text clinical documentation
-
-Text-to-speech environment settings are included for future accessibility development, but text-to-speech is not currently integrated into the active claims workflow.
-
----
-
-## Current Limitations
-
-The current Aoun version is a prototype.
-
-It does not:
-
-- Connect to production NPHIES
-- Submit real healthcare claims
-- Connect to insurance-company systems
-- Connect to hospital information systems
-- Apply official payer adjudication rules
-- Guarantee claim acceptance
-- Replace physician judgment
-- Replace medical coders
-- Replace claims specialists
-- Use real patient information in the demonstration dataset
-- Provide production clinical or financial recommendations
-
----
-
-## Production Requirements
-
-Before production deployment, Aoun would require:
-
-- Official NPHIES integration
-- Approved Saudi healthcare terminology and coding standards
-- Payer-specific policy contracts
-- Hospital information-system integration
-- Role-based access control
-- Single sign-on
-- Secure secrets management
-- Encryption in transit and at rest
-- Secure document storage
-- Immutable audit logs
-- Patient-data protection controls
-- Data-residency compliance
-- Clinical governance
-- Regulatory approval
-- Penetration testing
-- Monitoring and observability
-- Model-performance monitoring
-- Bias and safety evaluation
-- Human review and escalation procedures
-
----
-
-## Future Development
-
-- Official NPHIES integration
-- Hospital information-system integration
-- Insurance eligibility verification
-- Payer-specific policy validation
-- Saudi coding and terminology support
-- Prior-authorization validation
-- Explainable claim-risk modelling
-- Real-time correction suggestions
-- Role-based user accounts
-- Audit logs
-- Secure cloud document storage
-- Arabic clinical natural-language processing
-- Text-to-speech feedback
-- Claim-status tracking
-- Payer-response integration
-- Production monitoring and governance
-
----
-
-## Demo Materials
-
-The complete project submission may be organized as follows:
-
-```text
-Aoun – AI Healthcare Claims Validation/
-│
-├── 01_Aoun_Pitch_Deck.pdf
-├── 02_Aoun_Product_Demo.mp4
-│
-└── 03_Additional_Resources/
-    └── Datasets/
-        └── Healthcare_Claims_Dataset_Public_Sample/
-```
+| Project Capability | Current Implementation |
+|---|---|
+| Guided claim workflow | Multi-step Streamlit claim form |
+| Automatic information loading | Synthetic local patient, insurance, provider, and financial data |
+| Clinical documentation | Typed note or OpenAI speech-to-text |
+| Diagnosis and procedure selection | Local demonstration directories |
+| Supporting documents | Local file upload |
+| Pre-submission validation | Deterministic mock validation rules |
+| Explainable feedback | Issues, passed checks, and correction suggestions |
+| Compliance score | Demonstration score |
+| Acceptance estimate | Demonstration probability |
+| Human review | Correct, save as draft, or submit |
+| Persistence | SQLite and SQLAlchemy |
+| Claim history | Saved claims table |
+| Dashboard | Metrics generated from stored claims |
+| Accessibility | Arabic/English layouts, large text, and speech input |
 
 ---
 
 ## Team
 
 Aoun was developed by:
-
-- **ملاك حاتم الوجيد**
-- **نوره عساف أبوتين**
-- **منار الحواس**
-- **فاطمة محمد مشقق**
+- Fatima Mushfiq
+- Manar Alhawas
+- Malak Abuhimed
+- Noura Abuthnain
 
 ---
 
@@ -609,4 +637,14 @@ Aoun was developed by:
 
 Aoun is an educational demonstration project.
 
-It does not connect to production NPHIES services and must not be used to process real patient information, submit real healthcare claims, or make real insurance-adjudication decisions.
+It does not connect to production NPHIES services and must not be used to process real patient information, submit real healthcare claims, provide clinical recommendations, or make real insurance-adjudication decisions.
+
+---
+
+<div align="center">
+
+### Aoun | عون
+
+*Validate Earlier. Submit Stronger Claims.*
+
+</div>
