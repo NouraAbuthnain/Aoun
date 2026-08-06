@@ -1,0 +1,220 @@
+{
+  "patients": [
+    {
+      "patient_id": "PAT-1001",
+      "full_name": "Ahmed Alharbi",
+      "national_id": "1023456789",
+      "age": 45,
+      "gender": "male",
+      "insurance_company": "Medgulf",
+      "insurance_tier": "Platinum",
+      "policy_number": "POL-123456",
+      "eligibility_status": "active"
+    },
+    {
+      "patient_id": "PAT-1002",
+      "full_name": "Sara Alqahtani",
+      "national_id": "1098765432",
+      "age": 32,
+      "gender": "female",
+      "insurance_company": "Bupa",
+      "insurance_tier": "Silver",
+      "policy_number": "BUPA-879321",
+      "eligibility_status": "active"
+    },
+    {
+      "patient_id": "PAT-1003",
+      "full_name": "Mohammed Alotaibi",
+      "national_id": "1011121314",
+      "age": 67,
+      "gender": "male",
+      "insurance_company": "Tawuniya",
+      "insurance_tier": "Bronze",
+      "policy_number": "TAW-556677",
+      "eligibility_status": "inactive"
+    }
+  ],
+
+  "providers": [
+    {
+      "provider_id": "PRV-100",
+      "provider_name": "Aoun Demo Hospital",
+      "practitioner_id": "DOC-200",
+      "practitioner_name": "Dr. Haya Ahmed",
+      "department": "Internal Medicine",
+      "specialty": "General Medicine"
+    }
+  ],
+
+  "system_reference_data": {
+    "diagnosis_codes": [
+      {
+        "code": "I10",
+        "name": "Essential (primary) hypertension",
+        "billable": true
+      },
+      {
+        "code": "E11",
+        "name": "Type 2 diabetes mellitus (Category)",
+        "billable": false
+      },
+      {
+        "code": "E11.9",
+        "name": "Type 2 diabetes mellitus without complications",
+        "billable": true
+      },
+      {
+        "code": "M54.5",
+        "name": "Low back pain",
+        "billable": true
+      },
+      {
+        "code": "J45.909",
+        "name": "Unspecified asthma, uncomplicated",
+        "billable": true
+      },
+      {
+        "code": "G43.909",
+        "name": "Migraine, unspecified, not intractable",
+        "billable": true
+      },
+      {
+        "code": "K21.9",
+        "name": "Gastro-esophageal reflux disease without esophagitis",
+        "billable": true
+      },
+      {
+        "code": "O20.0",
+        "name": "Threatened abortion",
+        "billable": true,
+        "gender_restriction": "F"
+      }
+    ],
+
+    "procedure_codes": [
+      {
+        "code": "99213",
+        "name": "Outpatient Visit, Established Patient, Level 3",
+        "requires_preauth_standard": false
+      },
+      {
+        "code": "72148",
+        "name": "MRI Lumbar Spine without contrast",
+        "requires_preauth_standard": true
+      },
+      {
+        "code": "82947",
+        "name": "Glucose blood test (Fasting)",
+        "requires_preauth_standard": false
+      },
+      {
+        "code": "71045",
+        "name": "Radiologic examination, chest; single view",
+        "requires_preauth_standard": false
+      },
+      {
+        "code": "70450",
+        "name": "CT head or brain; without contrast",
+        "requires_preauth_standard": true
+      },
+      {
+        "code": "43239",
+        "name": "Upper GI Endoscopy with biopsy",
+        "requires_preauth_standard": true
+      },
+      {
+        "code": "76815",
+        "name": "Ultrasound, pregnant uterus",
+        "requires_preauth_standard": false
+      }
+    ],
+
+    "medication_codes": [
+      {
+        "code": "MED-001",
+        "name": "Metformin 500mg tablet",
+        "type": "Generic",
+        "formulary_tier": 1
+      },
+      {
+        "code": "MED-002",
+        "name": "Lisinopril 10mg tablet",
+        "type": "Generic",
+        "formulary_tier": 1
+      },
+      {
+        "code": "MED-003",
+        "name": "Ozempic 1mg pen",
+        "type": "Branded",
+        "formulary_tier": 3
+      },
+      {
+        "code": "MED-004",
+        "name": "Albuterol inhaler",
+        "type": "Generic",
+        "formulary_tier": 1
+      },
+      {
+        "code": "MED-005",
+        "name": "Sumatriptan 50mg",
+        "type": "Generic",
+        "formulary_tier": 2
+      },
+      {
+        "code": "MED-006",
+        "name": "Nexium (Esomeprazole) 40mg",
+        "type": "Branded",
+        "formulary_tier": 3
+      },
+      {
+        "code": "MED-007",
+        "name": "Omeprazole 20mg",
+        "type": "Generic",
+        "formulary_tier": 1
+      }
+    ],
+
+    "insurance_policies": [
+      {
+        "company": "Medgulf",
+        "tier": "Platinum",
+        "rules": {
+          "override_all_imaging_preauth": true,
+          "covered_medication_tiers": [1, 2, 3]
+        }
+      },
+      {
+        "company": "Tawuniya",
+        "tier": "Gold",
+        "rules": {
+          "override_all_imaging_preauth": true,
+          "covered_medication_tiers": [1, 2, 3]
+        }
+      },
+      {
+        "company": "Bupa",
+        "tier": "Silver",
+        "rules": {
+          "override_all_imaging_preauth": false,
+          "covered_medication_tiers": [1, 2]
+        }
+      },
+      {
+        "company": "Tawuniya",
+        "tier": "Bronze",
+        "rules": {
+          "override_all_imaging_preauth": false,
+          "covered_medication_tiers": [1]
+        }
+      },
+      {
+        "company": "Malath",
+        "tier": "Basic",
+        "rules": {
+          "override_all_imaging_preauth": false,
+          "covered_medication_tiers": [1]
+        }
+      }
+    ]
+  }
+}
